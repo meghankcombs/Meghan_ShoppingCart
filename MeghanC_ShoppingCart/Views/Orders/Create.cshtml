@@ -1,0 +1,188 @@
+﻿@model MeghanC_ShoppingCart.Models.Order
+@using MeghanC_ShoppingCart.Helpers
+
+<div id="content">
+    <div class="container">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")">Home</a>
+                </li>
+                <li>Checkout</li>
+            </ul>
+        </div>
+
+        @*<div class="col-md-6" id="basket">
+                <div class="box">
+                    <h1>Review Order</h1>
+                    <p class="text-muted">Does everything look right?</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Unit price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <!-- Partial View _CartIndex here -->
+                            @if (ViewBag.CustomerId != null)
+                            {
+                                @Html.Action("_CartIndex", "ShoppingCarts", new { id = ViewBag.CustomerId })
+                            }
+                            else
+                            {
+                                @Html.Action("_CartIndex", "ShoppingCarts", new { id = Model.CustomerId})
+                            }
+                            <!-- end Partial View -->
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5">Total</th>
+                                    <th colspan="2">$@CartHelper.CalcSubTotal()</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!-- end table-responsive -->
+                </div>
+                <!-- end box -->
+            </div>*@
+        <!-- end col-md-6: basket -->
+
+        <div class="col-md-5">
+            <div class="box" id="order-summary">
+                <div class="box-header">
+                    <h1>Order Review</h1>
+                    <p style="font-size: 16px;" class="muted">Does everything look right?</p>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Order subtotal</td>
+                                <th>$@CartHelper.CalcSubTotal()</th>
+                            </tr>
+                            <tr>
+                                <td>Shipping and handling</td>
+                                <th>$@CartHelper.Shipping()</th>
+                            </tr>
+                            <tr>
+                                <td>Tax</td>
+                                <th>$@CartHelper.Tax()</th>
+                            </tr>
+                            <tr class="total">
+                                <td>Total</td>
+                                <th>$@CartHelper.CalcTotal()</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box-footer">
+                    <div class="pull-left">
+                        <a href="@Url.Action("Index","ShoppingCarts")" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to cart</a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end box: order summary -->
+        </div>
+        <!-- end col-md-6 -->
+
+        <div class="col-md-7" id="checkout">
+
+            <div class="box">
+                <h1>Checkout</h1>
+                <ul class="nav nav-pills nav-justified">
+                    <li class="active"><br>Enter Address - Review Order</li>
+                </ul>
+
+                @using (Html.BeginForm("Create", "Orders", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="firstname">First Name</label>
+                                    <input type="text" class="form-control" name="ShipToFirstName" id="firstname">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="lastname">Last Name</label>
+                                    <input type="text" class="form-control" name="ShipToLastName" id="lastname">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row 1 -->
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="address">Street</label>
+                                    <input type="text" class="form-control" name="Address" id="address">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" name="City" id="city">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row 2 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" name="State" id="state">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="zip">ZIP</label>
+                                    <input type="text" class="form-control" name="ZipCode" id="zip">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row 3 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" name="Country" id="country">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="phone">Telephone</label>
+                                    <input type="text" class="form-control" name="Phone" id="phone">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row 4 -->
+                    </div>
+                    <!-- end content -->
+
+                    <div class="box-footer">
+                        @*<div class="pull-left">
+                                <a href="@Url.Action("Index","ShoppingCarts")" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to cart</a>
+                            </div>*@
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">Place Order<i class="fa fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- end box -->
+        </div>
+        <!-- end col-md-6: checkout -->
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->

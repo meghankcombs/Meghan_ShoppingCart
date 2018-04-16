@@ -1,0 +1,98 @@
+﻿@model MeghanC_ShoppingCart.Models.RegisterViewModel
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div id="content">
+        <div class="container">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="@Url.Action("Index","Home")">Home</a>
+                    </li>
+                    <li>New account Register</li>
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <!-- *** CUSTOMER MENU ***-->
+                <div class="panel panel-default sidebar-menu">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Account Menu</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i> Home</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index","Items")"><i class="fa fa-heart"></i> Gallery</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Contact","Home")"><i class="fa fa-envelope"></i> Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- *** CUSTOMER MENU END *** -->
+            </div>
+
+            <div class="col-md-9">
+                <div class="box">
+                    <h1>New account</h1>
+
+                    <p class="lead">Not registered yet?</p>
+                    <p>Register below.</p>
+                    <p class="text-muted">If you have any questions, please feel free to <a href="@Url.Action("Contact", "Home")">contact us</a>.</p>
+
+                    <hr>
+                    <div class="registerform">
+                        <label for="name">First Name</label>
+                        <input type="text" class="form-control" name="FirstName" id="name">
+                    </div>
+                    <div class="registerform">
+                        <label for="name">Last Name</label>
+                        <input type="text" class="form-control" name="LastName" id="name">
+                    </div>
+                    <div class="registerform">
+                        <label for="name">Display Name (optional)</label>
+                        <input type="text" class="form-control" name="DisplayName" id="name">
+                    </div>
+                    <div class="registerform">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" name="Email" id="email">
+                    </div>
+                    <div class="registerform">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="Password" id="password">
+                    </div>
+                    <div class="registerform">
+                        <label for="password">Confirm Password</label>
+                        <input type="password" class="form-control" name="ConfirmPassword" id="password">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-user"></i> Register</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+    </div>
+        <!-- /#content -->
+}
+
+@section scripts {
+    @if (TempData.ContainsKey("ErrorMessage"))
+    {
+        <script>
+            $(function () {
+                swal('Oops!', '@TempData["ErrorMessage"]', 'warning');
+            });
+        </script>
+    }
+}

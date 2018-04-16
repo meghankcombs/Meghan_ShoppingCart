@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MeghanC_ShoppingCart.Models.Item>
+@using MeghanC_ShoppingCart.Models
+@using MeghanC_ShoppingCart.Helpers
+
+<div class="box">
+    <h1>@Model.FirstOrDefault().Artist</h1>
+</div>
+<!-- PRODUCTS/ITEMS -->
+@{
+    var currentloop = 0;
+    var iterations = Math.Ceiling((decimal)Model.Count() / 3);
+    var itemGroup = new List<Item>();
+}
+
+<!--  I want to cycle over the entire data set -->
+@for (var loop = 1; loop <= iterations; loop++)
+{
+    itemGroup = Model.Skip(currentloop).Take(3).ToList();
+
+    <div class="row products">
+        @foreach (var item in itemGroup)
+        {
+            currentloop++;
+            <div class="col-md-4 col-sm-6">
+                <!-- first product -->
+                <div class="product">
+                    <a href="@Url.Content(item.MediaUrl)" target="_blank">
+                        <img src="@Url.Content(item.MediaUrl)" class="resize fixedheight2">
+                    </a>
+                    <div class="text">
+                        <h3><em>@item.Name</em></h3>
+                        <h5 class="marginfix2 text-center">@item.Artist</h5>
+                        <p class="price">$@item.Price</p>
+
+                        <p class="buttons">
+                            <div class="row text-center">
+                                <a href=@Url.Action("Details","Items", new { id = item.Id}) class="btn btn-default">View details</a>
+                                <a href=@Url.Action("Create","ShoppingCarts", new { Itemid = item.Id}) class="btn btn-primary">
+                                    <i class="fa fa-shopping-cart"></i>Add to cart
+                                </a>
+                            </div>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="row text-center" style="margin-top: 5px;">
+                                    <a href=@Url.Action("Edit","Items", new { id = item.Id}) class="btn btn-info btn-sm">Edit</a>
+                                    <a href=@Url.Action("Delete","Items", new { id = item.Id}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <!-- end first product -->
+            </div>
+        }
+    </div>
+
+}

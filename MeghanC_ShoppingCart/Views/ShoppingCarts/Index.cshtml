@@ -1,0 +1,133 @@
+﻿@model IEnumerable<MeghanC_ShoppingCart.Models.ShoppingCart>
+@using MeghanC_ShoppingCart.Helpers;
+
+<div id="all">
+    <!-- begin all -->
+
+    <div id="content">
+        <div class="container">
+
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="@Url.Action("Index","Home")">Home</a>
+                    </li>
+                    <li>Shopping cart (@CartHelper.CartCount())</li>
+                </ul>
+            </div>
+
+            <div class="col-md-9" id="basket">
+                <div class="box">
+                    <h1>Shopping cart</h1>
+                    <p class="text-muted">You currently have @CartHelper.CartCount() items in your cart.</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Product</th>
+                                    <th>Quantity</th>
+                                    <th>Refresh</th>
+                                    <th>Unit price</th>
+                                    <th colspan="2">Total</th>
+                                </tr>
+                            </thead>
+                            <!-- foreach loop here-->
+                            <tbody>
+                                @foreach (var art in Model)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("Details","Items", new {id = art.Id})">
+                                                <img src="@Url.Content(art.Item.MediaUrl)" class="img-responsive" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details","Items", new {id = art.Id})">@art.Item.Name</a>
+                                        </td>
+
+                                        @using (Html.BeginForm("Refresh", "ShoppingCarts", new { id = art.ItemId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @*@Html.Hidden("id", art.ItemId)*@
+                                            <td>
+                                                <input type="number" name="count" value="@art.Count" class="form-control">
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-xs btn-primary" style="margin-left: 8px;"><i class="fa fa-rotate-left"></i></button>
+                                            </td>
+                                        }
+
+                                        <td>$@art.Item.Price</td>
+                                        @{
+                                            var itemTotal = art.Count * art.Item.Price;
+                                        }
+                                        <td>$@itemTotal</td>
+                                        <td>
+                                            <a href="@Url.Action("Delete","ShoppingCarts", new {id = art.Id})"><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+
+                                            }
+                            </tbody>
+                            <!-- end foreach loop -->
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5">Total</th>
+                                    <th colspan="2">$@CartHelper.CalcSubTotal()</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div><!-- end table-responsive -->
+
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="@Url.Action("Index","Items")" class="btn btn-default"><i class="fa fa-chevron-left"></i> Continue shopping</a>
+                            <a href="@Url.Action("Index","Orders")" class="btn btn-primary"> Order History</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="@Url.Action("DeleteAll","ShoppingCarts")" class="btn btn-default"><i class="fa fa-trash-o"></i> Delete All</a>
+                            <a href=@Url.Action("Create","Orders") class="btn btn-primary"> Proceed to checkout</a> <i class="fa fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- end box -->
+            </div>
+            <!-- end basket -->
+
+            <div class="col-md-3">
+                <!-- begin col-md-3 -->
+                <div class="box" id="order-summary">
+                    <div class="box-header">
+                        <h3>Order summary</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Order subtotal</td>
+                                    <th>$@CartHelper.CalcSubTotal()</th>
+                                </tr>
+                                <tr>
+                                    <td>Shipping and handling</td>
+                                    <th>$@CartHelper.Shipping()</th>
+                                </tr>
+                                <tr>
+                                    <td>Tax (15%)</td>
+                                    <th>$@CartHelper.Tax()</th>
+                                </tr>
+                                <tr class="total">
+                                    <td>Total</td>
+                                    <th>$@CartHelper.CalcTotal()</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- end col-md-3 -->
+
+        </div><!-- end container -->
+    </div><!-- end content -->
+</div> <!-- END ALL -->

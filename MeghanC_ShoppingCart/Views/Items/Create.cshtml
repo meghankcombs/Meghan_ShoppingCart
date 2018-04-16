@@ -1,0 +1,74 @@
+﻿@model MeghanC_ShoppingCart.Models.Item
+
+<h2>Create New Artwork Record</h2>
+
+@*code inside a form and will go to POST version of the Create action in Items Controller*@
+@using (Html.BeginForm("Create", "Items", FormMethod.Post, new { enctype = "Multipart/form-data" }))//allowing certain types of files to be uploaded to form
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Artwork</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" }) @*creates label and injects html properties to it*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } }) @*user input area*@
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" }) @*error message design*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MediaUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.MediaUrl, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input name="Image" type="file" class="form-control" id="fileUpload" />
+                @Html.ValidationMessageFor(model => model.MediaUrl, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Artist, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Artist, new { htmlAttributes = new { @class = "form-control" } })*@
+                <select name="Artist" class="form-control">
+                    <option>Gregor van der Meer</option>
+                    <option>Olympia Hufferson</option>
+                    <option>Synthia Wallard</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Artist, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default btn-sm">Create</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="@Url.Action("Index","Home")" class="btn btn-primary btn-sm"><i class="fa fa-chevron-circle-left"></i> Back to Home</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

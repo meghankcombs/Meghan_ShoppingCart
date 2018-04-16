@@ -1,0 +1,58 @@
+﻿@model MeghanC_ShoppingCart.Models.OrderDetail
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>OrderDetail</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Item.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Item.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Order.ShipToFirstName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Order.ShipToFirstName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UnitPrice)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

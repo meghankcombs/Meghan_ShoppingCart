@@ -1,0 +1,71 @@
+﻿@model MeghanC_ShoppingCart.Models.Item
+
+<div id="content">
+    <div class="container">
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Items")">Gallery</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Items", new { artist = Model.Artist })">@Model.Artist</a>
+                </li>
+                <li>Details</li>
+            </ul>
+        </div>
+
+        @*<div class="col-md-3">*@
+        <!-- *** SIDE MENUS AND FILTERS *** -->
+        @*<div class="panel panel-default sidebar-menu">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Artwork</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked category-menu">
+                            <li>
+                                <a href="@Url.Action("Index", "Items", new { artist = "Gregor van der Meer" })">Gregor van der Meer</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Items", new { artist = "Olympia Hufferson" })">Olympia Hufferson</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Items", new { artist = "Synthia Wallard" })">Synthia Wallard</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>*@ <!-- *** END SIDE MENUS AND FILTERS *** -->
+
+        <div class="col-md-9">
+            <div class="row" id="productMain">
+                <div class="col-sm-12">
+                    <div class="zoomin" id="mainImage">
+                        <img src="@Url.Content(Model.MediaUrl)" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-md-9 -->
+
+        <div class="col-sm-3">
+            <div class="box" id="details">
+                <h2>Artwork details</h2>
+                <hr>
+                <h3><em>@Model.Name</em></h3>
+                <h4>@Model.Artist</h4>
+                <p class="price">$@Model.Price</p>
+                <p class="text-muted marginfix1">@Model.Description</p>
+                <p class="buttons">
+                    <a href=@Url.Action("Create","ShoppingCarts", new { ItemId = Model.Id }) class="btn btn-primary">
+                        <i class="fa fa-shopping-cart"></i> Add to cart
+                    </a>
+                </p>
+            </div><!-- end box: details -->
+        </div><!-- end col-sm-3 -->
+
+    </div><!-- /.container -->
+</div><!-- /#content -->

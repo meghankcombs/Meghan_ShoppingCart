@@ -1,0 +1,147 @@
+﻿@using MeghanC_ShoppingCart.Models;
+
+<div id="all">
+    <!-- ALL -->
+    <div id="content">
+        <!-- CONTENT -->
+        <!-- START HOME -->
+        <div class="container">
+            <div class="col-md-12">
+                <div>
+                    <div class="item">
+                        <img src="~/Images/Uploads/Gallery Interior.jpg" class="img-responsive maxheight4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END  HOME -->
+        <!-- *** ADVANTAGES HOMEPAGE *** -->
+        <div id="advantages">
+            <div class="container">
+                <div class="same-height-row">
+                    <div class="col-sm-4">
+                        <div class="box same-height clickable">
+                            <div class="icon">
+                                <i class="fa fa-heart"></i>
+                            </div>
+
+                            <h3><a href="@Url.Action("Index", "Items")">Beautiful Art</a></h3>
+                            <hr>
+                            <p>They will add the sophistication your home is searching for.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="box same-height clickable">
+                            <div class="icon">
+                                <i class="fa fa-money"></i>
+                            </div>
+
+                            <h3><a href="@Url.Action("Index", "Items")">Worthwhile Investment</a></h3>
+                            <hr>
+                            <p>Our pieces are guaranteed to increase in value over time.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="box same-height clickable">
+                            <div class="icon">
+                                <i class="fa fa-certificate"></i>
+                            </div>
+
+                            <h3><a href="@Url.Action("Index", "Items")">Authentic</a></h3>
+                            <hr>
+                            <p>Every artwork is a unique look into the artist's mind.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container -->
+
+        </div>
+        <!-- *** ADVANTAGES END *** -->
+        <!-- *** HOT PRODUCT SLIDESHOW *** -->
+        <div id="hot">
+            <div class="box">
+                <div class="container">
+                    <div class="col-md-12">
+                        <h2>Top Picks</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="product-slider">
+                    @{
+                        var db = new ApplicationDbContext();
+                        var Ar1 = db.Items.Where(i => i.Artist == "Gregor van der Meer").Take(3).ToList();
+                        var Ar2 = db.Items.Where(i => i.Artist == "Olympia Hufferson").Take(3).ToList();
+                        var Ar3 = db.Items.Where(i => i.Artist == "Synthia Wallard").Take(3).ToList();
+                    }
+                    @foreach (var art in Ar1)
+                    {
+                        <div class="item">
+                            <div class="product">
+                                <div class="fixedheight1">
+                                    <a href=@Url.Action("Details", "Items", new { id = art.Id })>
+                                        <img src="@Url.Content(art.MediaUrl)" class="resize">
+                                    </a>
+                                </div>
+                                <div class="text fixedheight1">
+                                    <h3><a href=@Url.Action("Details", "Items", new { id = art.Id })>@art.Name</a></h3>
+                                    <p class="price">@art.Artist</p>
+                                    <p class="price">$@art.Price</p>
+                                    <p class="text-muted text-center">@art.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @foreach (var art in Ar2)
+                    {
+                        <div class="item">
+                            <div class="product">
+                                <div class="fixedheight1">
+                                    <a href=@Url.Action("Details", "Items", new { id = art.Id })>
+                                        <img src="@Url.Content(art.MediaUrl)" class="resize">
+                                    </a>
+                                </div>
+                                <div class="text fixedheight1">
+                                    <h3><a href=@Url.Action("Details", "Items", new { id = art.Id })>@art.Name</a></h3>
+                                    <p class="price">@art.Artist</p>
+                                    <p class="price">$@art.Price</p>
+                                    <p class="text-muted text-center">@art.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @foreach (var art in Ar3)
+                    {
+                        <div class="item">
+                            <div class="product">
+                                <div class="fixedheight1">
+                                    <a href=@Url.Action("Details", "Items", new { id = art.Id })>
+                                        <img src="@Url.Content(art.MediaUrl)" class="resize">
+                                    </a>
+                                </div>
+                                <div class="text fixedheight1">
+                                    <h3><a href=@Url.Action("Details","Items", new { id = art.Id })>@art.Name</a></h3>
+                                    <p class="price">@art.Artist</p>
+                                    <p class="price">$@art.Price</p>
+                                    <p class="text-muted text-center">@art.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div><!-- /.product-slider -->
+            </div><!-- /.container -->
+
+        </div>
+        <!-- *** END HOT *** -->
+
+    </div><!-- END CONTENT -->
+</div> <!-- END ALL -->

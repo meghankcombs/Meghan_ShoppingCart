@@ -1,0 +1,80 @@
+.myformgroup {
+    margin-bottom: 15px;
+    width: 90%;
+    margin-left: 10px;
+}
+
+.maxheight2 {
+    height: 350px;
+}
+
+.maxheight3 {
+    /*height: 100%;*/
+    width: 100%;
+}
+
+.maxheight4 {
+    max-height: 100%;
+    margin-bottom: 30px;
+}
+
+.registerform {
+    margin-bottom: 15px;
+    width: 90%;
+    margin-left: 10px;
+}
+
+.orderdetfont {
+    font-size: 12px;
+}
+
+.resize {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.fixedheight1 {
+    height: 250px;
+}
+
+.fixedheight2 {
+    height: 200px;
+}
+
+.marginfix {
+    margin-top: 15px;
+}
+
+.marginfix1 {
+    margin-top: -10px;
+}
+
+.marginfix2 {
+    margin-top: -25px;
+}
+
+.marginbottom {
+    margin-bottom: 40px;
+}
+
+.btnmargin {
+    margin-bottom: 10px;
+}
+
+.colorchange {
+    color: #eeeeee
+}
+
+.nvpadding1 {
+    padding: 0 10px;
+}
+
+.nvpadding2 {
+    padding-right: 10px;
+}
+
+.nvpadding3 {
+    padding-left: 10px;
+}

@@ -1,0 +1,126 @@
+﻿@model MeghanC_ShoppingCart.Models.Order
+@using MeghanC_ShoppingCart.Helpers
+
+<div id="content">
+    <div class="container">
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")">Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Orders")">Order History</a>
+                </li>
+                <li>Order Details</li>
+            </ul>
+        </div>
+
+        <div class="col-md-3">
+            <!-- *** CUSTOMER MENU ***-->
+            <div class="panel panel-default sidebar-menu">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Account Menu</h3>
+                </div>
+
+                <div class="panel-body">
+
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a href="@Url.Action("Index","Orders")"><i class="fa fa-list"></i> My orders</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index","ShoppingCarts")"><i class="fa fa-heart"></i> My Cart</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Register","Account")"><i class="fa fa-user"></i> My account</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- *** CUSTOMER MENU END *** -->
+        </div>
+
+        <div class="col-md-9" id="customer-order">
+            <div class="box">
+                <h1>Order Details</h1>
+                <hr>
+
+                <div class="row addresses">
+                    <div class="col-md-6 text-left">
+                        <h4>Shipped to:</h4>
+                        <p>
+                            @Model.ShipToFirstName @Model.ShipToLastName
+                            <br>@Model.Address
+                            <br>@Model.City, @Model.State @Model.ZipCode
+                            <br>@Model.Phone
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th colspan="2">Product</th>
+                                <th>Quantity</th>
+                                <th colspan="2">Unit price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        @{ var orderTtl = 0m; }
+                        @foreach (var detail in Model.OrderDetails)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Items", new { id = detail.Id })">
+                                            <img src="@Url.Content(detail.Item.MediaUrl)" class="img-responsive">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Items", new { id = detail.Id })">@detail.Item.Name</a>
+                                    </td>
+                                    <td colspan="2">@detail.Quantity</td>
+                                    <td>$@detail.Item.Price</td>
+                                    @{
+                                        var detailTotal = detail.Quantity * detail.UnitPrice;
+                                        orderTtl += detailTotal;
+                                    }
+                                    <td>$@detailTotal</td>
+                                </tr>
+                            </tbody>
+                                        }
+                        <tfoot>
+                            <tr>
+                                <th colspan="5" class="text-left orderdetfont"><strong>Order subtotal</strong></th>
+                                <th class="orderdetfont">$@OrderHelper.GetOrderSubTotal(Model.Id)</th>
+                            </tr>
+                            <tr>
+                                <th colspan="5" class="text-left orderdetfont"><strong>Shipping and handling</strong></th>
+                                <th class="orderdetfont">$@OrderHelper.GetOrderShipping(Model.Id)</th>
+                            </tr>
+                            <tr>
+                                <th colspan="5" class="text-left orderdetfont"><strong>Tax</strong></th>
+                                <th class="orderdetfont">$@OrderHelper.GetOrderTax(Model.Id)</th>
+                            </tr>
+                            <tr>
+                                <th colspan="5" class="text-left orderdetfont"><strong>Total</strong></th>
+                                <th class="orderdetfont">$@OrderHelper.GetOrderTotal(Model.Id)</th>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+
+                </div>
+                <!-- /.table-responsive -->
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->

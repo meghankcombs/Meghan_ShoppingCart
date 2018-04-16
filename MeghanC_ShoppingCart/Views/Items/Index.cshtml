@@ -1,0 +1,91 @@
+﻿@model IEnumerable<MeghanC_ShoppingCart.Models.Item>
+@using MeghanC_ShoppingCart.Models
+
+<div id="all">
+    <!-- ALL -->
+
+    <div id="content">
+        <!-- CONTENT -->
+        <div class="container">
+            <!-- CONTAINER -->
+
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="@Url.Action("Index","Home")">Home</a>
+                    </li>
+                    @if (ViewBag.Artist == null)
+                    {
+                        <li>Gallery</li>
+                    }
+
+                    else if (ViewBag.Artist != null)
+                    {
+                        <li><a href="@Url.Action("Index", "Items")">Gallery</a></li>
+                        <li>
+                            @ViewBag.Artist
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <!-- *** SIDE MENUS AND FILTERS *** -->
+                <div class="panel panel-default sidebar-menu">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Gallery</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked category-menu">
+                            <li>
+                                <a href="@Url.Action("Index","Items", new { artist = "Gregor van der Meer"})">Gregor van der Meer</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index","Items", new { artist = "Olympia Hufferson"})">Olympia Hufferson</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index","Items", new { artist = "Synthia Wallard"})">Synthia Wallard</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!-- *** END SIDE MENUS AND FILTERS *** -->
+
+            </div>
+            <div class="col-md-9">
+                @if (ViewBag.Artist != null)
+                {
+                    @Html.Action("_ArtistIndex", "Items", new { name = ViewBag.Artist })
+                }
+                else
+                {
+                    @Html.Action("_ArtistIndex", "Items", new { name = "Gregor van der Meer" })
+                    @Html.Action("_ArtistIndex", "Items", new { name = "Olympia Hufferson" })
+                    @Html.Action("_ArtistIndex", "Items", new { name = "Synthia Wallard" })
+                }
+                <div class="pages">
+                    <p class="loadMore">
+                        <a href="@Url.Action("Index","Home")" class="btn btn-primary btn-lg"><i class="fa fa-chevron-circle-left"></i> Back to Home</a>
+                    </p>
+                </div>
+
+            </div>
+            <!-- end col-md-9 -->
+        </div><!-- END CONTAINER -->
+    </div><!-- END CONTENT -->
+</div> <!-- END ALL -->
+
+@section scripts {
+    @if (TempData.ContainsKey("Message"))
+    {
+        <script>
+            $(function () {
+                swal('Wonderful!', '@TempData["Message"]', 'success');
+            });
+        </script>
+    }
+
+}

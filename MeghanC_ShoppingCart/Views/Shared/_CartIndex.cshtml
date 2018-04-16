@@ -1,0 +1,28 @@
+﻿@model IEnumerable<MeghanC_ShoppingCart.Models.ShoppingCart>
+@using MeghanC_ShoppingCart.Models
+@using MeghanC_ShoppingCart.Helpers
+
+@foreach (var art in Model)
+{
+    <tbody>
+        <tr>
+            <td>
+                <a href="@Url.Action("Details","Items", new {id = art.Id})">
+                    <img src="@Url.Content(art.Item.MediaUrl)" class="img-responsive" />
+                </a>
+            </td>
+            <td>
+                <a href="@Url.Action("Details","Items", new {id = art.Id})">@art.Item.Name</a>
+            </td>
+            <td>@art.Count</td>
+            <td>@art.Item.Price</td>
+            @{
+                var itemTotal = art.Count * art.Item.Price;
+            }
+            <td>@itemTotal</td>
+            <td>
+                <a href="@Url.Action("Delete","ShoppingCarts", new {id = art.Id})"><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+    </tbody>
+                }
